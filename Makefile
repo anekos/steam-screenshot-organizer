@@ -1,5 +1,8 @@
 .PHONY: build
 build: rsrc.syso
+	GOOS=windows go build .
+
+build-gui: rsrc.syso
 	GOOS=windows go build -ldflags "-H windowsgui -s -w" .
 
 icon.ico: icon.png
