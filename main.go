@@ -31,7 +31,7 @@ func main() {
 
   args, err := parser.Parse();
   if err != nil {
-    os.Exit(1)
+    Die(err)
   }
 
   if len(args) != 1 {
