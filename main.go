@@ -3,6 +3,7 @@ package main
 import (
   "fmt"
   "os"
+  "os/exec"
   "path/filepath"
   "github.com/jessevdk/go-flags"
 )
@@ -14,6 +15,7 @@ func Die(err error) {
 
 type AppOptions struct {
   SteamRoot string `short:"s" long:"steam-root" description:"Steam App Root" default:"C:\\Program Files (x86)\\Steam\\userdata\\"`
+  Shutdown bool `short:"x" long:"shutdown" description:"Shutdown OS"`
 }
 
 func Usage() {
@@ -53,6 +55,12 @@ func main() {
       CopyScreenshots(game.Path, smart)
     } else {
       CopyScreenshots(game.Path, target)
+    }
+  }
+
+  if options.Shutdown {
+    if err := exec.Command("shutdown.exe", "/s", "/t", "0").Run(); err != nil {
+      Die(err)
     }
   }
 }
